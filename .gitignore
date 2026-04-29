@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Obsidian (si vault Obsidian par-dessus)
+.obsidian/workspace*
+.obsidian/cache
+
+# Locaux / secrets
+.env
+.env.local
+secrets/
+*.key
+*.pem
+
+# Caches LLM / outils
+.claude/cache/
+node_modules/
+__pycache__/
+*.pyc
