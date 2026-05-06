@@ -1,0 +1,6 @@
+# PolyMind — Aider config
+# Charge automatiquement CONVENTIONS.md à chaque session aider lancée depuis ce dossier.
+# Cf. https://aider.chat/docs/usage/conventions.html
+
+read:
+  - CONVENTIONS.md

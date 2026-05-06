@@ -12,12 +12,26 @@ Thumbs.db
 .obsidian/workspace*
 .obsidian/cache
 
-# Locaux / secrets
+# Locaux / secrets — JAMAIS commit
+*.local.md
 .env
-.env.local
+.env.*
 secrets/
 *.key
 *.pem
+*.p12
+
+# Fichiers d'entrée LLM posés par scripts/polymind-init.sh à la RACINE du repo
+# (le `/` initial = root only, pour ne pas exclure adapters/claude/CLAUDE.md etc.)
+/CLAUDE.md
+/CLAUDE.local.md
+/AGENTS.md
+/GEMINI.md
+/CONVENTIONS.md
+/CONVENTIONS.local.md
+/.cursor/
+/.windsurf/
+/.aider.conf.yml
 
 # Caches LLM / outils
 .claude/cache/

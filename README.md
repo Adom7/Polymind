@@ -72,9 +72,38 @@ rm -rf .git && git init
 1. Lis `TAXONOMY.md` (10 min) — c'est le cœur conceptuel.
 2. Ouvre `FACTS/FACTS_user.md` et remplis tes faits durs (hardware, OS, identité).
 3. Adapte `ROUTING.md` à ton vocabulaire (ajoute / supprime des lignes).
-4. Pointe ton LLM vers ce dossier comme racine mémoire :
-   - **Claude Code** : copie `PROTOCOL_read.md` + `PROTOCOL_write.md` dans ton `CLAUDE.md` global, ou pointe `MEMORY.md` vers ce dossier.
-   - **Codex / autres** : préfixe tes prompts avec un loader qui lit `INDEX.md` + `FACTS/*.md`.
+4. Pose l'adapter pour ton LLM (cf. section suivante).
+
+---
+
+## Multi-LLM — installation en une commande
+
+PolyMind se branche sur 6 LLMs majeurs via des adapters dédiés, chacun respectant la convention auto-load native du LLM (sources doc officielles citées dans `LLM_ADAPTERS.md`) :
+
+| LLM | Auto-load | Adapter |
+|---|---|---|
+| Claude Code (Anthropic) | `CLAUDE.md` | [`adapters/claude/`](adapters/claude/CLAUDE.md) |
+| Codex CLI (OpenAI) | `AGENTS.md` | [`adapters/codex/`](adapters/codex/AGENTS.md) |
+| Gemini CLI (Google) | `GEMINI.md` | [`adapters/gemini/`](adapters/gemini/GEMINI.md) |
+| Cursor | `.cursor/rules/*.mdc` | [`adapters/cursor/`](adapters/cursor/.cursor/rules/polymind.mdc) |
+| Windsurf (Codeium) | `.windsurf/rules/*.md` | [`adapters/windsurf/`](adapters/windsurf/.windsurf/rules/polymind.md) |
+| Aider | `.aider.conf.yml` (manuel) | [`adapters/aider/`](adapters/aider/CONVENTIONS.md) |
+
+```bash
+# Pose l'adapter au bon endroit avec ${POLYMIND_ROOT} substitué automatiquement
+bash scripts/polymind-init.sh claude        # ou: codex | gemini | cursor | windsurf | aider
+# Avec --global : pose dans ~/.claude/, ~/.codex/, ~/.gemini/ (selon LLM)
+
+# Vérifie la cohérence du repo (frontmatter, INDEX, adapters, .gitignore…)
+bash scripts/polymind-validate.sh .
+# Score: 100/100 attendu
+
+# Teste le comportement avec 5 prompts pré-écrits
+cat scripts/test-prompts.md
+```
+
+Détails par LLM (paths exacts, frontmatters, particularités) : [`LLM_ADAPTERS.md`](LLM_ADAPTERS.md).
+Mémoire locale vs Git, secrets, sync multi-machines : [`STORAGE.md`](STORAGE.md).
 
 ---
 
@@ -92,9 +121,11 @@ Détails complets dans `TAXONOMY.md` §3 (les 8 règles).
 
 ## État du projet
 
-Version **v1 — design** (Sprint 1 livré). Sprint 2 = implémentation / migration progressive de vaults existants. Sprint 3+ = adaptateurs multi-LLM (Codex, Mythos…) et publication open source large.
+- **v1 design** : TAXONOMY, ROUTING, PROTOCOL_read, PROTOCOL_write, INDEX, FACTS template (Sprint 1 livré).
+- **v1 multi-LLM** : adapters Claude / Codex / Gemini / Cursor / Windsurf / Aider + scripts `polymind-init.sh` et `polymind-validate.sh` + `STORAGE.md` + `LLM_ADAPTERS.md` (Sprint 2 livré 2026-05-06).
+- À venir : GitHub Action validator sur PR, loader cross-LLM générique, intégration Graphify optionnelle, Mythos, Continue.dev.
 
-Projet pensé en MAs (milestones) avec saves fréquents. Branche de dev courante : voir l'arbre des branches.
+Projet pensé en MAs (milestones) avec saves fréquents.
 
 ---
 
