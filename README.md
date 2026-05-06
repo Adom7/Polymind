@@ -123,7 +123,7 @@ Détails complets dans `TAXONOMY.md` §3 (les 8 règles).
 
 - **v1 design** : TAXONOMY, ROUTING, PROTOCOL_read, PROTOCOL_write, INDEX, FACTS template (Sprint 1 livré).
 - **v1 multi-LLM** : adapters Claude / Codex / Gemini / Cursor / Windsurf / Aider + scripts `polymind-init.sh` et `polymind-validate.sh` + `STORAGE.md` + `LLM_ADAPTERS.md` (Sprint 2 livré 2026-05-06).
-- À venir : GitHub Action validator sur PR, loader cross-LLM générique, intégration Graphify optionnelle, Mythos, Continue.dev.
+- À venir : GitHub Action validator sur PR, loader cross-LLM générique, intégration Graphify optionnelle, Continue.dev, Zed AI.
 
 Projet pensé en MAs (milestones) avec saves fréquents.
 
