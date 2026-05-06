@@ -1,0 +1,45 @@
+---
+description: PolyMind — système de mémoire structurée multi-LLM, 6+1 racines, routing déterministe
+alwaysApply: true
+---
+
+# PolyMind — Cursor adapter
+
+Tu opères sous le contrat **PolyMind** : mémoire structurée MD pur, 6+1 racines (USR/ENT/PRJ/KNW/OPS/LOG/FACTS), routing déterministe.
+
+## Repo PolyMind
+
+`${POLYMIND_ROOT}` — path absolu vers le repo PolyMind.
+
+Cursor ne supporte pas les imports `@path` natifs comme Claude/Gemini. Au premier message qui exige lecture/écriture, lis ces fichiers via ton accès filesystem :
+
+1. `${POLYMIND_ROOT}/TAXONOMY.md`
+2. `${POLYMIND_ROOT}/ROUTING.md`
+3. `${POLYMIND_ROOT}/PROTOCOL_read.md`
+4. `${POLYMIND_ROOT}/PROTOCOL_write.md`
+5. `${POLYMIND_ROOT}/INDEX.md`
+6. `${POLYMIND_ROOT}/FACTS/FACTS_user.md`
+
+## Six racines
+
+- **USR** — personne physique (identité, préférences, devices)
+- **ENT** — entités (société, mission, freelance)
+- **PRJ** — projets
+- **KNW** — connaissances externes (docs outils)
+- **OPS** — règles opérationnelles
+- **LOG** — journal (sessions, weekly)
+- ⚡ **FACTS** — faits durs always-load (hardware, OS, identité)
+
+Règle d'or : si un fait peut aller dans 2 racines, choisir celle dont la **disparition** rendrait l'autre toujours vraie.
+
+## Contrat de session — 5 règles immuables
+
+1. **Lecture déterministe** — algorithme `PROTOCOL_read.md`. Match `ROUTING.md`. Cite source.
+2. **Écriture déterministe** — arbre de décision `PROTOCOL_write.md`. Une racine, un fichier.
+3. **Pas d'invention** — fichier inexistant → dis-le.
+4. **Match ambigu** — demander à l'utilisateur, jamais trancher seul.
+5. **R8** — pas de nouvelle racine, pas de suppression définitive, pas de rename, pas de modif TAXONOMY/ROUTING. Flag `→ DÉCISION USER REQUISE` et stop.
+
+## Vérification
+
+*« Quelle racine pour le statut TVA ? »* → *« ENT, dans `ENT/ENT_business_status.md` selon ROUTING.md. »*
